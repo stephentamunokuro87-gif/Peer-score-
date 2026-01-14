@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - P2P Payment App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to P2P Payment</h1>
+        
+        <div class="user-info">
+            <p><strong>Your User ID:</strong> <span id="currentUserId">Loading...</span></p>
+            <p><small>Click to copy your ID</small></p>
+        </div>
+        
+        <div class="balance-container">
+            <div class="balance-label">Your Balance</div>
+            <div class="balance-amount" id="userBalance">$0.00</div>
+        </div>
+        
+        <div class="transfer-section">
+            <h2>Send Money</h2>
+            
+            <div class="error-message" id="transferError"></div>
+            <div class="success-message" id="transferSuccess"></div>
+            
+            <form id="transferForm">
+                <div class="form-group">
+                    <label for="recipientId">Recipient User ID</label>
+                    <input type="text" id="recipientId" placeholder="Enter recipient's user ID" required>
+                    <small style="color: #666; font-size: 12px;">Get this from recipient's home page</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="amount">Amount ($)</label>
+                    <input type="number" id="amount" step="0.01" min="0.01" placeholder="0.00" required>
+                    <small style="color: #666; font-size: 12px;">Available: $<span id="availableBalance"></span></small>
+                </div>
+                
+                <button type="submit" class="btn">Send Money</button>
+            </form>
+        </div>
+        
+        <div class="transfer-history">
+            <h3>Recent Transactions</h3>
+            <div id="transactionsList">
+                <p class="no-transactions">No transactions yet</p>
+            </div>
+        </div>
+        
+        <button class="btn logout-btn" id="logoutBtn">Logout</button>
+    </div>
+
+    <script src="firebase-config.js"></script>
+    <script src="home.js"></script>
+    
+    <style>
+        /* Add these styles to your existing CSS */
+
+.error {
+    border-color: #dc3545 !important;
+    background-color: #fff8f8;
+}
+
+.amount.sent {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.amount.received {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.transaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.transaction-id {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px;
+    font-family: monospace;
+}
+
+.no-transactions {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+/* User ID styling */
+#currentUserId {
+    cursor: pointer;
+    padding: 5px 10px;
+    background: #f0f0f0;
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 14px;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+#currentUserId:hover {
+    background: #e0e0e0;
+}
+
+.user-info {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.user-info p {
+    margin: 5px 0;
+}
+    </style>
+</body>
+</html>
